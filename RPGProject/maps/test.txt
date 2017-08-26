@@ -1,0 +1,20 @@
+Test map construction
+[NAME:Ape Atoll]
+
+[SYMBOL_ALIAS:+]
+	[CAPACITY: 0]
+[SYMBOL_ALIAS:-]
+	[CAPACITY: 0]
+[SYMBOL_ALIAS:|]
+	[CAPACITY: 0]
+[SYMBOL_ALIAS:.]
+	[CAPACITY: 1]
+width of the map
+[WIDTH:20]
+[ADD_ROW:+------------------+]
+[ADD_ROW:|..................|]
+[ADD_ROW:|..................|]
+[ADD_ROW:|..................|]
+[ADD_ROW:|..................|]
+[ADD_ROW:|..................|]
+[ADD_ROW:+------------------+]

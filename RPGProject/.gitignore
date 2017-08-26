@@ -1,0 +1,6 @@
+*.dll
+*.lib
+build
+Debug
+RPGProject
+art
