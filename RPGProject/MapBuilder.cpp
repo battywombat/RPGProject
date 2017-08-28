@@ -1,25 +1,34 @@
-#include <iostream>
-
 #include "MapBuilder.h"
-
 
 bool MapBuilder::_AddRow(std::string row)
 {
-	if (row.size() != this->_width) {
+	if (row.size() != _width) {
 		return false;
 	}
 	auto newRow = std::vector<std::shared_ptr<Space>>();
 	for (auto iter = row.begin(); iter != row.end(); iter++) {
-		newRow.push_back(std::shared_ptr<Space>(new Space(this->_aliases[*iter].get())));
+		newRow.push_back(std::shared_ptr<Space>(new Space(_aliases[*iter].get())));
 	}
-	this->_data.push_back(newRow);
+	_data.push_back(newRow);
 	return true;
 }
 
 bool MapBuilder::_HandleAliasKey(std::string key, std::string value)
 {
 	if (key == "CAPACITY") {
-		this->_alias_capacity = stoi(value);
+		_a_capacity = stoi(value);
+	}
+	else if (key == "NUM") {
+		_a_num = stoi(value);
+	}
+	else if (key == "FG_COLOR") {
+		ParseVector(value, (int *)_a_fg, 3);
+	}
+	else if (key == "BG_COLOR") {
+		ParseVector(value, (int *)_a_bg, 3);
+	}
+	else if (key == "CHARACTER") {
+		_a_char = value;
 	}
 	else {
 		return false;
@@ -29,43 +38,52 @@ bool MapBuilder::_HandleAliasKey(std::string key, std::string value)
 
 void MapBuilder::_CreateAlias()
 {
-	Symbol *s = new Symbol(this->_alias_sym);
-	this->_aliases[this->_alias_sym] = std::unique_ptr<Space>(new Space(s, this->_alias_capacity));
+	Symbol *sym = new Symbol(_a_num, _a_fg[0], _a_fg[1], _a_fg[2], _a_bg[0], _a_bg[1], _a_bg[2]);
+	Space *s = new Space(sym, _a_capacity);
+	if (_a_char != "") {
+		_char_builder->ParseFile(_a_char);
+		Character *c = _char_builder->GetCharacter();
+		if (c != nullptr) {
+			s->AddContents(c);
+		}
+	}
+	_aliases[_alias_sym] = std::unique_ptr<Space>(s);
 }
 
 bool MapBuilder::Start()
 {
-	this->_m = nullptr;
-	this->_data = std::vector<std::vector<std::shared_ptr<Space>>>();
-	this->_width = -1;
-	this->_rows = std::vector<std::string>();
-	this->_building_alias = false;
-	this->_aliases = std::map<char, std::unique_ptr<Space>>();
+	_m = nullptr;
+	_data = std::vector<std::vector<std::shared_ptr<Space>>>();
+	_width = -1;
+	_rows = std::vector<std::string>();
+	_building_alias = false;
+	_aliases = std::map<char, std::unique_ptr<Space>>();
 	return true;
 }
 
 bool MapBuilder::Finish()
 {
-  //if (this->_width == -1) {
-  //		return false;
-  //	}
+  if (_width == -1) {
+  		return false;
+  	}
 
-	for (auto iter = this->_rows.begin(); iter != this->_rows.end(); iter++) {
-		if (!this->_AddRow(*iter)) {
+	for (auto iter = _rows.begin(); iter != _rows.end(); iter++) {
+		if (!_AddRow(*iter)) {
 			return false;
 		}
 	}
-	this->_m = new Map(this->_name, this->_data);
+	_m = new Map(_name, _data);
 	return true;
 }
 
 Map * MapBuilder::GetMap()
 {
-	return this->_m;
+	return _m;
 }
 
 MapBuilder::MapBuilder()
 {
+	_char_builder = std::make_unique<CharacterBuilder>();
 }
 
 MapBuilder::~MapBuilder()
@@ -74,26 +92,30 @@ MapBuilder::~MapBuilder()
 
 bool MapBuilder::HandleKey(std::string key, std::string value)
 {
-	if (this->_building_alias) {
-		if (this->_HandleAliasKey(key, value)) {
+	if (_building_alias) {
+		if (_HandleAliasKey(key, value)) {
 			return true;
 		}
 		else {
-			this->_CreateAlias();
+			_CreateAlias();
+			_building_alias = false;
 		}
 	}
 	if (key == "NAME") {
-		this->_name = value;
+		_name = value;
 	}
 	else if (key == "WIDTH") {
-		this->_width = std::stoi(value);
+		_width = std::stoi(value);
 	}
 	else if (key == "ADD_ROW") {
-		this->_rows.push_back(value);
+		_rows.push_back(value);
 	}
 	else if (key == "SYMBOL_ALIAS") {
-		this->_building_alias = true;
-		this->_alias_sym = value[0];
+		_building_alias = true;
+		_alias_sym = value[0];
+		_a_bg[0] = _a_bg[1] = _a_bg[2] = 0;
+		_a_fg[0] = _a_fg[1] = _a_fg[2] = 255;
+		_a_char = std::string();
 	}
 	else {
 		return false;

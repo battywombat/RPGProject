@@ -16,6 +16,15 @@
     <Filter Include="Resource Files\maps">
       <UniqueIdentifier>{7e287e19-5148-4d9a-87ca-6a572c044fa1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\config">
+      <UniqueIdentifier>{f8ef0f69-c9f4-4f47-bef5-acc7c620ad15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\art">
+      <UniqueIdentifier>{3f1269e6-5d0b-461c-b6dc-ecd7f3595b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\characters">
+      <UniqueIdentifier>{ed843397-0725-4393-8cf5-967e3b712952}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -48,6 +57,18 @@
     <ClCompile Include="Item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -77,14 +98,37 @@
     <ClInclude Include="GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="maps\test.txt">
       <Filter>Resource Files\maps</Filter>
     </Text>
     <Text Include="CMakeLists.txt" />
+    <Text Include="config\graphics.txt">
+      <Filter>Resource Files\config</Filter>
+    </Text>
+    <Text Include="characters\testchar.txt">
+      <Filter>Resource Files\characters</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="art\curses_640x300.png">
+      <Filter>Resource Files\art</Filter>
+    </Image>
   </ItemGroup>
 </Project>

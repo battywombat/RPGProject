@@ -1,36 +1,31 @@
 #include <iostream>
-#include <SDL.h>
-#include <SDL_ttf.h>
-#include <SDL_image.h>
 #include <vector>
+
+#include <SDL.h>
+#include <SDL_image.h>
 
 #include "SDLRenderer.h"
 #include "Space.h"
 #include "Map.h"
+#include "Graphics.h"
 
 void SDLRenderer::_RenderFrame()
 {
-	auto map = this->_state->GetMap();
+	auto map = _state->GetMap();
 
 	SDL_Rect dstrect;
 
 	dstrect.x = 0;
 	dstrect.y = 0;
-	SDL_GetWindowSize(this->_win, &dstrect.w, &dstrect.h);
+	SDL_GetWindowSize(_win, &dstrect.w, &dstrect.h);
 
-	auto canvas = SDL_CreateRGBSurface(0, dstrect.w, dstrect.h, 32, 0, 0, 0, 0);
+	SDL_RenderClear(_ren);
 
-	map->Draw(this->_font, canvas, &dstrect);
+	map->Draw(_ren, &dstrect);
 
-	SDL_Texture *tex = SDL_CreateTextureFromSurface(this->_ren, canvas);
+	SDL_SetRenderDrawColor(_ren, 0, 0, 0, 0);
 
-	SDL_RenderClear(this->_ren);
-	SDL_RenderCopy(this->_ren, tex, nullptr, &dstrect);
-	SDL_RenderPresent(this->_ren);
-
-	SDL_DestroyTexture(tex);
-	SDL_FreeSurface(canvas);
-
+	SDL_RenderPresent(_ren);
 }
 
 void SDLRenderer::_Close()
@@ -61,23 +56,25 @@ bool SDLRenderer::Init()
 		return false;
 	}
 
-	this->_win = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
-	if (this->_win == nullptr) {
+	_win = SDL_CreateWindow("Hello World!", 100, 100, 640, 480, SDL_WINDOW_SHOWN);
+	if (_win == nullptr) {
 		std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 
-	this->_ren = SDL_CreateRenderer(this->_win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (this->_ren == nullptr) {
+	_ren = SDL_CreateRenderer(_win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (_ren == nullptr) {
 		std::cout << "SDL_CreateRenderer Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 
-	this->_font = TTF_OpenFont("art/gomono.ttf", 12);
-	if (this->_font == nullptr) {
+	_font = TTF_OpenFont("art/gomono.ttf", 13);
+	if (_font == nullptr) {
 		std::cout << "SDL_OpenFont Error: " << TTF_GetError() << std::endl;
 		return false;
 	}
+
+	Graphics::Init(_ren, "config/graphics.txt");
 
 	return true;
 
@@ -98,29 +95,26 @@ void SDLRenderer::Start()
 				SDL_PushEvent(&ev);
 			}
 		}
-		this->_RenderFrame();
+		_RenderFrame();
 	}
 }
 
-SDLRenderer::SDLRenderer(GameState *state)
+SDLRenderer::SDLRenderer(GameState *state) : _win(nullptr), _ren(nullptr), _font(nullptr)
 {
-	this->_state = std::unique_ptr<GameState>(state);
-	this->_win = nullptr;
-	this->_ren = nullptr;
-	this->_font = nullptr;
+	_state = std::unique_ptr<GameState>(state);
 }
 
 SDLRenderer::~SDLRenderer()
 {
-	if (this->_font != nullptr) {
-		TTF_CloseFont(this->_font);
+	if (_font != nullptr) {
+		TTF_CloseFont(_font);
 	}
-	if (this->_ren != nullptr) {
-		SDL_DestroyRenderer(this->_ren);
+	if (_ren != nullptr) {
+		SDL_DestroyRenderer(_ren);
 	}
-	if (this->_win != nullptr) {
-		SDL_DestroyWindow(this->_win);
+	if (_win != nullptr) {
+		SDL_DestroyWindow(_win);
 	}
 
-	this->_Close();
+	_Close();
 }

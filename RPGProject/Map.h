@@ -23,7 +23,7 @@ public:
 	int GetHeight();
 	int GetXOf(Space *s);
 	int GetYOf(Space *s);
-	void Draw(TTF_Font *f, SDL_Surface *s, SDL_Rect *dstrect);
+	void Draw(SDL_Renderer *s, SDL_Rect *dstrect);
 	std::string GetName();
 	std::shared_ptr<Space> GetSpaceAt(size_t x, size_t y);
 	Map(std::string name, std::vector<std::vector<std::shared_ptr<Space>>> data);

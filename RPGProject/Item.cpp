@@ -6,19 +6,19 @@
 
 Item::Item(Symbol *s)
 {
-	this->_sym = std::shared_ptr<Symbol>(s);
+	_sym = std::shared_ptr<Symbol>(s);
 }
 
 Item::~Item()
 {
 }
 
-void Item::DrawSymbol(TTF_Font *f, SDL_Surface * s, SDL_Rect *dstrect)
+void Item::DrawSymbol(SDL_Renderer * s, SDL_Rect *dstrect)
 {
-	this->_sym->Draw(f, s, dstrect);
+	_sym->Draw(s, dstrect);
 }
 
 Item::Item(const Item * obj)
 {
-	this->_sym = obj->_sym;
+	_sym = obj->_sym;
 }

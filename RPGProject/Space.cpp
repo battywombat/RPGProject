@@ -3,16 +3,16 @@
 
 Space::Space(const Space * obj) : Container(obj)
 {
-	this->_x = obj->_x;
-	this->_y = obj->_y;
-	this->_capacity = obj->_capacity;
-	this->_m = obj->_m;
+	_x = obj->_x;
+	_y = obj->_y;
+	_capacity = obj->_capacity;
+	_m = obj->_m;
 }
 
 Space::Space(Symbol * sym, int capacity) : Container(sym)
 {
-	this->_capacity = capacity;
-	this->_x = this->_y = -1;
+	_capacity = capacity;
+	_x = _y = -1;
 }
 
 Space::~Space()
@@ -21,15 +21,27 @@ Space::~Space()
 
 bool Space::CanContain(Item * item)
 {
-	return this->_capacity > 0;
+	return _capacity > 0;
 }
 
 int Space::GetX()
 {
-	return this->_x == -1 ? this->_x = this->_m->GetXOf(this) : this->_x;
+	return _x == -1 ? _x = _m->GetXOf(this) : _x;
 }
 
 int Space::GetY()
 {
-	return this->_y == -1 ? this->_y = this->_m->GetYOf(this) : this->_y;
+	return _y == -1 ? _y = _m->GetYOf(this) : _y;
+}
+
+void Space::DrawSymbol(SDL_Renderer * s, SDL_Rect * dstrect)
+{
+	auto contents = GetContents();
+	if (GetContents().size() > 0) {
+		auto item = *contents.begin();
+		item->DrawSymbol(s, dstrect);
+	}
+	else {
+		Item::DrawSymbol(s, dstrect);
+	}
 }

@@ -9,18 +9,14 @@
 class Symbol
 {
 private:
-	char _sym;
-	std::string _fp;
-	int _w;
-	int _h;
-	int _x;
-	int _y;
+	uint8_t _bg[3];
+	uint8_t _fg[3];
+	int _spritenum;
 public:
-	bool IsChar();
-	char GetSymbolChar();
-	void Draw(TTF_Font *f, SDL_Surface *s, SDL_Rect *dstrect);
-	Symbol(char sym);
-	Symbol(std::string fp, int w, int h, int x, int y);
+	void Draw(SDL_Renderer *s, SDL_Rect *dstrect);
+	Symbol(int _spritenum);
+	Symbol(int _spritenum, int fgr, int fgg, int fgb);
+	Symbol(int _spritenum, int fgr, int fgg, int fgb, int bgr, int bgg, int bgb);
 	~Symbol();
 };
 

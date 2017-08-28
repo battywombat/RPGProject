@@ -1,0 +1,6 @@
+graphics description
+[FILE:art/curses_640x300.png]
+[SHEET_WIDTH:16]
+[SHEET_HEIGHT:16]
+[SPRITE_WIDTH:8]
+[SPRITE_HEIGHT:12]

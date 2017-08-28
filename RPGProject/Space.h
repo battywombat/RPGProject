@@ -28,6 +28,7 @@ public:
 	virtual bool CanContain(Item *item);
 	virtual int GetX();
 	virtual int GetY();
+	virtual void DrawSymbol(SDL_Renderer *s, SDL_Rect *dstrect) override;
 };
 
 #endif /* SPACE_H */

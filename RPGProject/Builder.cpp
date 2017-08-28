@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <cctype>
 #include <fstream>
+#include <sstream>
 
 #include "Builder.h"
 
@@ -43,9 +44,9 @@ bool Builder::ParseFile(std::string fp)
 		return false;
 	}
 
-	if (!this->Start()) {
+	if (!Start()) {
 		f.close();
-		this->Abort();
+		Abort();
 		return false;
 	}
 
@@ -62,13 +63,13 @@ bool Builder::ParseFile(std::string fp)
 		colon_pos = std::find(line.begin(), line.end(), ':');
 		if (colon_pos == line.end()) {
 			f.close();
-			this->Abort();
+			Abort();
 			return false;
 		}
 		key = std::string(line.begin() + 1, colon_pos);
 		value = std::string(colon_pos + 1, line.end() - 1);
 		if (!this->HandleKey(key, value)) {
-			this->Abort();
+			Abort();
 			f.close();
 			return false;
 		}
@@ -76,7 +77,21 @@ bool Builder::ParseFile(std::string fp)
 	}
 
 	f.close();
-	return this->Finish();
+	return Finish();
+}
+
+void Builder::ParseVector(std::string value, int * vec, int lim)
+{
+	std::stringstream ss;
+	ss.str(value);
+	std::string item;
+	int i = 0;
+	while (std::getline(ss, item, ',')) {
+		vec[i++] = stoi(item);
+		if (i >= lim) {
+			break;
+		}
+	}
 }
 
 Builder::Builder()
