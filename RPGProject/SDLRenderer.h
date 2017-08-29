@@ -22,6 +22,7 @@ private:
 
 	void _RenderFrame();
 	void _Close();
+	void _HandleKey(SDL_KeyboardEvent *ev);
 public:
 	bool Init();
 	void Start();

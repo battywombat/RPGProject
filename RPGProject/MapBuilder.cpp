@@ -5,9 +5,9 @@ bool MapBuilder::_AddRow(std::string row)
 	if (row.size() != _width) {
 		return false;
 	}
-	auto newRow = std::vector<std::shared_ptr<Space>>();
+	auto newRow = std::vector<Space *>();
 	for (auto iter = row.begin(); iter != row.end(); iter++) {
-		newRow.push_back(std::shared_ptr<Space>(new Space(_aliases[*iter].get())));
+		newRow.push_back(new Space(_aliases[*iter].get()));
 	}
 	_data.push_back(newRow);
 	return true;
@@ -42,7 +42,7 @@ void MapBuilder::_CreateAlias()
 	Space *s = new Space(sym, _a_capacity);
 	if (_a_char != "") {
 		_char_builder->ParseFile(_a_char);
-		Character *c = _char_builder->GetCharacter();
+		auto c = _char_builder->GetCharacter();
 		if (c != nullptr) {
 			s->AddContents(c);
 		}
@@ -53,7 +53,7 @@ void MapBuilder::_CreateAlias()
 bool MapBuilder::Start()
 {
 	_m = nullptr;
-	_data = std::vector<std::vector<std::shared_ptr<Space>>>();
+	_data = std::vector<std::vector<Space *>>();
 	_width = -1;
 	_rows = std::vector<std::string>();
 	_building_alias = false;
@@ -76,7 +76,7 @@ bool MapBuilder::Finish()
 	return true;
 }
 
-Map * MapBuilder::GetMap()
+Map *MapBuilder::GetMap()
 {
 	return _m;
 }

@@ -23,7 +23,7 @@ Test map construction
 width of the map
 [WIDTH: 20]
 [ADD_ROW:+------------------+]
-[ADD_ROW:|       x          |]
+[ADD_ROW:|                  |]
 [ADD_ROW:|                  |]
 [ADD_ROW:|                  |]
 [ADD_ROW:|                  |]

@@ -39,6 +39,25 @@ void SDLRenderer::_Close()
 	}
 }
 
+void SDLRenderer::_HandleKey(SDL_KeyboardEvent * ev)
+{
+	if (ev->keysym.sym == SDLK_LEFT) {
+		_state->GetPlayer()->Move(Direction::WEST);
+	}
+	else if (ev->keysym.sym == SDLK_RIGHT) {
+		_state->GetPlayer()->Move(Direction::EAST);
+	}
+	else if (ev->keysym.sym == SDLK_UP) {
+		_state->GetPlayer()->Move(Direction::NORTH);
+	}
+	else if (ev->keysym.sym == SDLK_DOWN) {
+		_state->GetPlayer()->Move(Direction::SOUTH);
+	}
+	else {
+
+	}
+}
+
 bool SDLRenderer::Init()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -91,8 +110,7 @@ void SDLRenderer::Start()
 				quit = 1;
 			}
 			else if (ev.type == SDL_KEYDOWN) {
-				ev.type = SDL_QUIT;
-				SDL_PushEvent(&ev);
+				_HandleKey(&ev.key);
 			}
 		}
 		_RenderFrame();

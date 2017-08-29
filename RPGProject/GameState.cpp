@@ -4,9 +4,14 @@
 #include "GameState.h"
 #include "MapBuilder.h"
 
-Map * GameState::GetMap()
+Map *GameState::GetMap()
 {
 	return _map;
+}
+
+Player *GameState::GetPlayer()
+{
+	return _p;
 }
 
 GameState::GameState()
@@ -16,10 +21,11 @@ GameState::GameState()
 		std::cout << "Failed to parse map!" << std::endl;
 	}
 	_map = builder->GetMap();
+	_p = new Player();
+	_map->PlayerEnterMap(_p, 1, 1);
 }
 
 
 GameState::~GameState()
 {
-	delete _map;
 }

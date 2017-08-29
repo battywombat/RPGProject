@@ -4,31 +4,36 @@
 
 #include <memory>
 
-#include "Container.h"
-#include "Item.h"
+#include "Drawable.h"
 #include "Symbol.h"
-#include "Map.h"
 
-class Map;
+class Drawable;
+class TreeNode;
 class Symbol;
-class Item;
 
 class Space :
-	public Container
+	public Drawable
 {
 private:
-	std::shared_ptr<Map> _m;
 	int _x;
 	int _y;
 	int _capacity;
+	std::vector <Drawable *> _contents;
 public:
 	Space(const Space *obj);
 	Space(Symbol *sym, int _capacity);
 	~Space();
-	virtual bool CanContain(Item *item);
+	virtual void SetCoordinates(int x, int y);
+	virtual bool CanContain(Drawable *item);
 	virtual int GetX();
 	virtual int GetY();
-	virtual void DrawSymbol(SDL_Renderer *s, SDL_Rect *dstrect) override;
+	virtual void Draw(SDL_Renderer *s, SDL_Rect *dstrect) override;
+
+	// Inherited via Drawable
+	virtual std::vector<TreeNode *> GetChildren() override;
+	virtual bool RemoveContents(TreeNode *item) override;
+	virtual bool AddContents(TreeNode *item) override;
+	virtual bool CanContain(TreeNode *item) override;
 };
 
 #endif /* SPACE_H */

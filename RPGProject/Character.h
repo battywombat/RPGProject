@@ -1,22 +1,36 @@
 #ifndef CHARACTER_H
 
 #define CHARACTER_H
-#include "Container.h"
-#include "Builder.h"
+#include <memory>
+
+class Character;
+class TreeNode;
+class Space;
+
+#include "Drawable.h"
+#include "Space.h"
+
 class Character :
-	public Container, Builder
+	public Drawable
 {
+private:
+	std::shared_ptr<Space> _space;
 public:
 	Character(Symbol *s);
 	~Character();
 
-	// Inherited via Container
-	virtual int GetX() override;
-	virtual int GetY() override;
-	virtual bool CanContain(Item * item) override;
+	virtual bool Move(Direction d);
 
-	// Inherited via Builder
-	virtual bool HandleKey(std::string key, std::string value) override;
+
+	// Inherited via Drawable
+	virtual std::vector<TreeNode *> GetChildren() override;
+
+	virtual bool RemoveContents(TreeNode *item) override;
+
+	virtual bool AddContents(TreeNode *item) override;
+
+	virtual bool CanContain(TreeNode *item) override;
+
 };
 
 #endif /* CHARACTER_H */

@@ -33,7 +33,7 @@ private:
 	size_t _width;
 	std::string _name;
 	std::vector<std::string> _rows;
-	std::vector<std::vector<std::shared_ptr<Space>>> _data;
+	std::vector<std::vector<Space *>> _data;
 
 	bool _AddRow(std::string row);
 	bool _HandleAliasKey(std::string key, std::string value);
