@@ -1,5 +1,9 @@
 #include "TreeNode.h"
 
+TreeNode::TreeNode() : _parent(nullptr)
+{
+}
+
 TreeNode::TreeNode(const TreeNode * obj)
 {
 	if (obj == nullptr) {

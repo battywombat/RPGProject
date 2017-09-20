@@ -1,12 +1,11 @@
 #include <iostream>
-#include <memory>
 
 #include "GameState.h"
 #include "MapBuilder.h"
 
-Map *GameState::GetMap()
+World *GameState::GetWorld()
 {
-	return _map;
+	return _world;
 }
 
 Player *GameState::GetPlayer()
@@ -20,9 +19,17 @@ GameState::GameState()
 	if (!builder->ParseFile("maps/test.txt")) {
 		std::cout << "Failed to parse map!" << std::endl;
 	}
-	_map = builder->GetMap();
+	auto map1 = builder->GetMap();
+	if (!builder->ParseFile("maps/test2.txt")) {
+		std::cout << "Failed to parse map!" << std::endl;
+	}
+	auto map2 = builder->GetMap();
+	auto v = std::vector<Map *>();
 	_p = new Player();
-	_map->PlayerEnterMap(_p, 1, 1);
+	v.push_back(map1);
+	v.push_back(map2);
+	_world = new World(v);
+	_world->AddPlayer(_p, 1, 1, 0);
 }
 
 

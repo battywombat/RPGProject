@@ -1,4 +1,5 @@
 #include "MapBuilder.h"
+#include "Portal.h"
 
 bool MapBuilder::_AddRow(std::string row)
 {
@@ -30,6 +31,9 @@ bool MapBuilder::_HandleAliasKey(std::string key, std::string value)
 	else if (key == "CHARACTER") {
 		_a_char = value;
 	}
+	else if (key == "PORTAL") {
+		ParseVector(value, (int *)_a_p, 3);
+	}
 	else {
 		return false;
 	}
@@ -39,7 +43,8 @@ bool MapBuilder::_HandleAliasKey(std::string key, std::string value)
 void MapBuilder::_CreateAlias()
 {
 	Symbol *sym = new Symbol(_a_num, _a_fg[0], _a_fg[1], _a_fg[2], _a_bg[0], _a_bg[1], _a_bg[2]);
-	Space *s = new Space(sym, _a_capacity);
+	Portal *p = _a_p[0] == -1 ? nullptr : new Portal(_a_p[0], _a_p[1], _a_p[2]);
+	Space *s = new Space(sym, _a_capacity, p);
 	if (_a_char != "") {
 		_char_builder->ParseFile(_a_char);
 		auto c = _char_builder->GetCharacter();
@@ -115,6 +120,7 @@ bool MapBuilder::HandleKey(std::string key, std::string value)
 		_alias_sym = value[0];
 		_a_bg[0] = _a_bg[1] = _a_bg[2] = 0;
 		_a_fg[0] = _a_fg[1] = _a_fg[2] = 255;
+		_a_p[0] = -1;
 		_a_char = std::string();
 	}
 	else {

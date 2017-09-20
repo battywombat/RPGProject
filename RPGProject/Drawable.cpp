@@ -7,7 +7,7 @@
 
 Drawable::Drawable(Symbol *s) : TreeNode(nullptr)
 {
-	_sym = std::shared_ptr<Symbol>(s);
+	_sym = s;
 }
 
 Drawable::~Drawable()

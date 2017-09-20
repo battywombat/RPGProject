@@ -2,18 +2,17 @@
 
 #define GAMESTATE_H
 
-#include <memory>
-
 #include "Map.h"
 #include "Player.h"
+#include "World.h"
 
 class GameState
 {
 private:
-	Map *_map;
+	World *_world;
 	Player *_p;
 public:
-	Map *GetMap();
+	World *GetWorld();
 	Player *GetPlayer();
 	GameState();
 	~GameState();

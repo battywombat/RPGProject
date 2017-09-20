@@ -2,6 +2,16 @@
 
 #include "Map.h"
 
+int Character::GetX()
+{
+	return dynamic_cast<Space *>(GetParent())->GetX();
+}
+
+int Character::GetY()
+{
+	return dynamic_cast<Space *>(GetParent())->GetY();
+}
+
 Character::Character(Symbol *s)
 	: Drawable(s)
 {
@@ -39,22 +49,15 @@ bool Character::Move(Direction d)
 	return true;
 }
 
-std::vector<TreeNode *> Character::GetChildren()
+bool Character::TravelPortal()
 {
-	return std::vector<TreeNode *>();
-}
-
-bool Character::RemoveContents(TreeNode *item)
-{
-	return false;
-}
-
-bool Character::AddContents(TreeNode *item)
-{
-	return false;
-}
-
-bool Character::CanContain(TreeNode *item)
-{
-	return false;
+	Space *s = dynamic_cast<Space *>(GetParent());
+	if (s == nullptr) {
+		return false;
+	}
+	Portal *p = s->GetPortal();
+	if (p == nullptr) {
+		return false;
+	}
+	return p->TravelPortal(this);
 }

@@ -2,12 +2,10 @@
 
 #define MAP_H
 
-#include <memory>
 #include <string>
 #include <vector>
 
 #include <SDL.h>
-#include <SDL_ttf.h>
 
 class Space;
 class Character;
@@ -24,25 +22,19 @@ class Map
 private:
 	std::string _name;
 	std::vector<std::vector<Space *>> _data;
-
 public:
 	int GetWidth();
 	int GetHeight();
 	int GetXOf(Space *s);
 	int GetYOf(Space *s);
-	void Draw(SDL_Renderer *s, SDL_Rect *dstrect);
+	void DrawBorder(SDL_Renderer *s, SDL_Rect *dstrect);
+	void Draw(SDL_Renderer *s, SDL_Rect *src, SDL_Rect *dst);
 	std::string GetName();
 	Space *GetSpaceAt(size_t x, size_t y);
-	bool PlayerEnterMap(Player *p, int x, int y);
 	bool AddCharacter(Character *c, int x, int y);
 	Map(std::string name, std::vector<std::vector<Space *>> data);
 	~Map();
 
-	// Inherited via TreeNode
-	virtual std::vector<TreeNode *> GetChildren() override;
-	virtual bool RemoveContents(TreeNode *item) override;
-	virtual bool AddContents(TreeNode *item) override;
-	virtual bool CanContain(TreeNode *item) override;
 };
 
 #endif /* MAP_H */

@@ -25,6 +25,9 @@
     <Filter Include="Resource Files\characters">
       <UniqueIdentifier>{ed843397-0725-4393-8cf5-967e3b712952}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\map generators">
+      <UniqueIdentifier>{0d58823b-7634-4689-b46f-86c53fa591bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -69,6 +72,15 @@
     <ClCompile Include="Drawable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BiomeGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Space.h">
@@ -110,6 +122,15 @@
     <ClInclude Include="TreeNode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BiomeGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="maps\test.txt">
@@ -121,6 +142,9 @@
     </Text>
     <Text Include="characters\testchar.txt">
       <Filter>Resource Files\characters</Filter>
+    </Text>
+    <Text Include="maps\test2.txt">
+      <Filter>Resource Files\maps</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

@@ -6,18 +6,34 @@ Space::Space(const Space * obj) : Drawable(obj)
 	_x = obj->_x;
 	_y = obj->_y;
 	_capacity = obj->_capacity;
+	_p = obj->_p;
+	if (_p) {
+		_p->SetParent(this);
+	}
 }
 
 Space::Space(Symbol * sym, int capacity) : Drawable(sym)
 {
 	_capacity = capacity;
 	_x = _y = -1;
+	_p = nullptr;
+}
+
+Space::Space(Symbol * sym, int _capacity, Portal * p) : Space(sym, _capacity)
+{
+	_p = p;
+	if (_p) {
+		_p->SetParent(this);
+	}
 }
 
 Space::~Space()
 {
 	for (auto i = _contents.begin(); i != _contents.end(); i++) {
 		delete *i;
+	}
+	if (_p) {
+	//	delete _p;
 	}
 }
 
@@ -54,39 +70,34 @@ void Space::Draw(SDL_Renderer * s, SDL_Rect * dstrect)
 	}
 }
 
-std::vector<TreeNode *> Space::GetChildren()
+std::vector<Drawable *> Space::GetChildren()
 {
-	auto s = std::vector <TreeNode *>();
+	auto s = std::vector <Drawable *>();
 	for (auto i = _contents.begin(); i != _contents.end(); i++) {
 		s.push_back(*i);
 	}
 	return s;
 }
 
-bool Space::RemoveContents(TreeNode *item)
+Portal * Space::GetPortal()
+{
+	return _p;
+}
+
+bool Space::RemoveContents(Drawable *item)
 {
 	for (auto i = _contents.begin(); i != _contents.end(); i++) {
 		if (*i == item) {
 			_contents.erase(i);
-			break;
+			return true;
 		}
 	}
 	return false;
 }
 
-bool Space::AddContents(TreeNode *item)
+bool Space::AddContents(Drawable *item)
 {
-	auto i = dynamic_cast<Drawable *>(item);
-	if (i == nullptr) {
-		return false;
-	}
-	_contents.push_back(i);
-	i->SetParent(this);
+	_contents.push_back(item);
+	item->SetParent(this);
 	return true;
-}
-
-bool Space::CanContain(TreeNode *item)
-{
-	auto i = dynamic_cast<Drawable *>(item);
-	return i != nullptr;
 }

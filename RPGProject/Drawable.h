@@ -2,7 +2,6 @@
 #define ITEM_H
 
 #include <SDL.h>
-#include <memory>
 
 #include "Symbol.h"
 #include "TreeNode.h"
@@ -14,9 +13,9 @@ class Drawable
 	: public TreeNode
 {
 private:
-	std::shared_ptr<Symbol> _sym;
+	Symbol *_sym;
 public:
-	virtual void Draw(SDL_Renderer *s, SDL_Rect *dstrect) override;
+	virtual void Draw(SDL_Renderer *s, SDL_Rect *dstrect);
 	Drawable(const Drawable *obj);
 	Drawable(Symbol *s);
 	~Drawable();

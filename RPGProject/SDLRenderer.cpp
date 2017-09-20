@@ -11,17 +11,20 @@
 
 void SDLRenderer::_RenderFrame()
 {
-	auto map = _state->GetMap();
+	auto world = _state->GetWorld();
 
-	SDL_Rect dstrect;
+	SDL_Rect win_dim;
+	SDL_Rect map_dim;
 
-	dstrect.x = 0;
-	dstrect.y = 0;
-	SDL_GetWindowSize(_win, &dstrect.w, &dstrect.h);
+	win_dim.x = map_dim.x = 0;
+	win_dim.y = map_dim.y = 0;
+	SDL_GetWindowSize(_win, &win_dim.w, &win_dim.h);
+	map_dim.w = win_dim.w / 2;
+	map_dim.h = win_dim.h;
 
 	SDL_RenderClear(_ren);
 
-	map->Draw(_ren, &dstrect);
+	world->Draw(_ren, &map_dim);
 
 	SDL_SetRenderDrawColor(_ren, 0, 0, 0, 0);
 
@@ -52,6 +55,9 @@ void SDLRenderer::_HandleKey(SDL_KeyboardEvent * ev)
 	}
 	else if (ev->keysym.sym == SDLK_DOWN) {
 		_state->GetPlayer()->Move(Direction::SOUTH);
+	}
+	else if (ev->keysym.sym == '.') {
+		_state->GetPlayer()->TravelPortal();
 	}
 	else {
 

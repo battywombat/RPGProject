@@ -27,6 +27,7 @@ private:
 	int _a_num;
 	int _a_fg[3];
 	int _a_bg[3];
+	int _a_p[3];
 	std::string _a_char;
 	std::map <char, std::unique_ptr<Space>> _aliases;
 	Map *_m;
