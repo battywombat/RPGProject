@@ -20,7 +20,6 @@ public:
 	World(std::vector<Map *> data);
 	bool AddCharacter(Character *c, size_t x, size_t y, size_t z);
 	bool AddPlayer(Player *p, size_t x, size_t y, size_t z);
-	void SetViewport();
 	~World();
 	Map *GetMap(int z);
 

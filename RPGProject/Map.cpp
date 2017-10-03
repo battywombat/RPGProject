@@ -81,8 +81,8 @@ void Map::Draw(SDL_Renderer * s, SDL_Rect *src, SDL_Rect * dst)
 	Graphics::GetSprite(0, &current);
 	current.x = dst->x;
 	current.y = dst->y;
-	for (size_t i = 0; current.y < dst->h + dst->y && i < _data.size(); i++) {
-		for (size_t j = 0; current.x < dst->w + dst->x && j < _data[i].size(); j++) {
+	for (size_t i = src->y; current.y < dst->h + dst->y && i < _data.size() && i < src->y + src->h; i++) {
+		for (size_t j = src->x; current.x < dst->w + dst->x && j < _data[i].size() && i < src->x + src->w; j++) {
 			_data[i][j]->Draw(s, &current);
 			current.x += current.w;
 		}
