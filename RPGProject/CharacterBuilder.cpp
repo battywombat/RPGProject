@@ -10,7 +10,7 @@ bool CharacterBuilder::_HandleSymKey(std::string key, std::string value)
 	}
 	else {
 		return false;
-	}
+	} 
 	return true;
 }
 

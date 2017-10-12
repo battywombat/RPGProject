@@ -20,7 +20,11 @@ enum Direction
 	NORTH,
 	SOUTH,
 	EAST,
-	WEST
+	WEST,
+	NORTHEAST,
+	NORTHWEST,
+	SOUTHEAST,
+	SOUTHWEST
 };
 
 class TreeNode

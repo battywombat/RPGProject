@@ -1,0 +1,51 @@
+﻿
+Renamed 'cursorDirection' to '_CursorDirection':
+------------------------------------------------
+d:\workspace\RPGProject\RPGProject\GameState.cpp(9, 6)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(9, 44)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(9, 87)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(12, 6)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(12, 44)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(12, 87)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(15, 6)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(15, 45)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(15, 88)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(18, 6)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(18, 45)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(18, 88)
+d:\workspace\RPGProject\RPGProject\GameState.h(14, 17)
+
+Renamed 'map_dim' to 'win_dim':
+-------------------------------
+d:\workspace\RPGProject\RPGProject\SDLRenderer.cpp(16, 11)
+d:\workspace\RPGProject\RPGProject\SDLRenderer.cpp(18, 2)
+d:\workspace\RPGProject\RPGProject\SDLRenderer.cpp(18, 14)
+d:\workspace\RPGProject\RPGProject\SDLRenderer.cpp(19, 2)
+d:\workspace\RPGProject\RPGProject\SDLRenderer.cpp(21, 2)
+d:\workspace\RPGProject\RPGProject\SDLRenderer.cpp(22, 2)
+
+Renamed 'win_dim' to 'map_dim':
+-------------------------------
+d:\workspace\RPGProject\RPGProject\GameState.cpp(54, 11)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(55, 2)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(55, 14)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(56, 2)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(57, 2)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(58, 19)
+
+Renamed 'dim' to 'win_dim':
+---------------------------
+d:\workspace\RPGProject\RPGProject\GameState.cpp(52, 50)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(56, 14)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(57, 14)
+
+Renamed 's' to 'ren':
+---------------------
+d:\workspace\RPGProject\RPGProject\GameState.cpp(52, 37)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(58, 15)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(59, 14)
+
+Renamed 's' to 'ren':
+---------------------
+d:\workspace\RPGProject\RPGProject\GameState.cpp(7, 43)
+d:\workspace\RPGProject\RPGProject\GameState.cpp(26, 21)

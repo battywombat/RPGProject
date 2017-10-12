@@ -14,17 +14,13 @@ void SDLRenderer::_RenderFrame()
 	auto world = _state->GetWorld();
 
 	SDL_Rect win_dim;
-	SDL_Rect map_dim;
 
-	win_dim.x = map_dim.x = 0;
-	win_dim.y = map_dim.y = 0;
+	win_dim.x = win_dim.y = 0;
 	SDL_GetWindowSize(_win, &win_dim.w, &win_dim.h);
-	map_dim.w = win_dim.w / 2;
-	map_dim.h = win_dim.h;
 
 	SDL_RenderClear(_ren);
 
-	world->Draw(_ren, &map_dim);
+	_state->Draw(_ren, &win_dim);
 
 	SDL_SetRenderDrawColor(_ren, 0, 0, 0, 0);
 
@@ -44,23 +40,45 @@ void SDLRenderer::_Close()
 
 void SDLRenderer::_HandleKey(SDL_KeyboardEvent * ev)
 {
-	if (ev->keysym.sym == SDLK_LEFT) {
+	switch (ev->keysym.sym) {
+	case SDLK_LEFT:
 		_state->GetPlayer()->Move(Direction::WEST);
-	}
-	else if (ev->keysym.sym == SDLK_RIGHT) {
+		break;
+	case SDLK_RIGHT:
 		_state->GetPlayer()->Move(Direction::EAST);
-	}
-	else if (ev->keysym.sym == SDLK_UP) {
+		break;
+	case SDLK_UP:
 		_state->GetPlayer()->Move(Direction::NORTH);
-	}
-	else if (ev->keysym.sym == SDLK_DOWN) {
+		break;
+	case SDLK_DOWN:
 		_state->GetPlayer()->Move(Direction::SOUTH);
-	}
-	else if (ev->keysym.sym == '.') {
+		break;
+	case '.':
 		_state->GetPlayer()->TravelPortal();
-	}
-	else {
-
+		break;
+	case 'w':
+		_state->SetCursorDirection(Direction::NORTH);
+		break;
+	case 'a':
+		_state->SetCursorDirection(Direction::WEST);
+		break;
+	case 's':
+		_state->SetCursorDirection(Direction::SOUTH);
+		break;
+	case 'd':
+		_state->SetCursorDirection(Direction::EAST);
+		break;
+	case 'q':
+		_state->SetCursorDirection(Direction::NORTHWEST);
+		break;
+	case 'e':
+		_state->SetCursorDirection(Direction::NORTHEAST);
+		break;
+	case 'z':
+		_state->SetCursorDirection(Direction::SOUTHWEST);
+		break;
+	case 'c':
+		_state->SetCursorDirection(Direction::SOUTHEAST);
 	}
 }
 
